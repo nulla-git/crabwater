@@ -1,35 +1,18 @@
-# Saltwater
+# crabwater
 
 [![Build Status](https://travis-ci.org/jyn514/rcc.svg?branch=master)](https://travis-ci.org/jyn514/rcc)
-[Join us on Discord](https://discord.gg/BPER7PF)
 
-saltwater: the part of the sea causing lots of rust
+crabwater: crabs live in saltwater, and salt causes rust.
 
-A C compiler written in Rust, with a focus on good error messages.
-
----
-
-_**This project is no longer maintained.**_
-
----
+crabwater is an attempt to revive saltwater; a C compiler written in rust with a focus on good error messages.
 
 ## Running
 
-`swcc` reads from standard in by default, so you can type in code directly.
+`cwcc` reads from standard in by default, so you can type in code directly.
 It's not interactive though, you have to hit Ctrl+D to indicate end of file (Ctrl+Z on Windows).
 
-Use `swcc --help` for all options (or see [below](#all-options)).
+Use `cwcc --help` for all options (or see [below](#all-options)).
 
-### Running on Windows
-
-You need to have `cc` on your PATH. You can either install mingw + gcc or MSVC.
-Other than that, it should work exactly the same as on Linux.
-
-### Homebrew
-
-```
-brew install saltwater
-```
 
 ## Unimplemented features
 
@@ -74,7 +57,7 @@ int g(int i) {
   }
   return a[i];
 }
-$ swcc tests/runner-tests/readme.c
+$ cwcc tests/runner-tests/readme.c
 $️ ./a.out
 j is 6
 ```
@@ -99,12 +82,12 @@ syntax error
 # if defined b && defined(a)
     int main() { return i; }
 #endif
-$ swcc -E tests/runner-tests/cpp/if/defined.c
+$ cwcc -E tests/runner-tests/cpp/if/defined.c
 int i = 2 ; int main ( ) { return i ; }
 ```
 
 ```c
-$ echo 'int i = 1 + 2 ^ 3 % 5 / 2 & 1; int main(){}' | swcc --debug-ast
+$ echo 'int i = 1 + 2 ^ 3 % 5 / 2 & 1; int main(){}' | cwcc --debug-ast
 ast: int i = ((1) + (2)) ^ ((((3) % (5)) / (2)) & (1));
 ast: int main(){
 }
@@ -116,7 +99,7 @@ $ cat tests/runner-tests/hello_world.c
 int main() {
     puts("Hello, world!");
 }
-$ swcc --debug-ir tests/runner-tests/hello_world.c
+$ cwcc --debug-ir tests/runner-tests/hello_world.c
 function u0:0() -> i32 system_v {
     gv0 = symbol colocated u1:3
     sig0 = (i64) -> i32 system_v
@@ -135,13 +118,13 @@ Hello, world!
 ### All options
 
 ```txt
-$ swcc --help
-swcc 0.9.0
+$ cwcc --help
+cwcc 0.9.0
 Joshua Nelson <jyn514@gmail.com>
 A C compiler written in Rust, with a focus on good error messages.
 Homepage: https://github.com/jyn514/rcc/
 
-usage: swcc [FLAGS] [OPTIONS] [<file>]
+usage: cwcc [FLAGS] [OPTIONS] [<file>]
 
 FLAGS:
         --debug-ast        If set, print the parsed abstract syntax tree (AST) in addition to compiling.
@@ -151,7 +134,7 @@ FLAGS:
         --debug-ir         If set, print the intermediate representation (IR) of the program in addition to compiling.
         --debug-lex        If set, print all tokens found by the lexer in addition to compiling.
         --jit              If set, will use JIT compilation for C code and instantly run compiled code (No files produced).
-                            NOTE: this option only works if swcc was compiled with the `jit` feature.
+                            NOTE: this option only works if cwcc was compiled with the `jit` feature.
     -h, --help             Prints help information
     -c, --no-link          If set, compile and assemble but do not link. Object file is machine-dependent.
     -E, --preprocess-only  If set, preprocess only, but do not do anything else.
